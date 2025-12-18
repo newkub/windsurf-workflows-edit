@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import type { Workflow } from "~/shared/types/workflow";
+import type { Workflow } from "../../shared/types/workflow";
 
 const workflowsDir =
   "C:\\Users\\Veerapong\\.codeium\\windsurf\\global_workflows";
@@ -13,6 +13,7 @@ export async function getWorkflows(): Promise<Workflow[]> {
   const workflows = await Promise.all(
     markdownFiles.map(async (file) => {
       const filePath = path.join(workflowsDir, file);
+      const stats = await fs.stat(filePath);
       const fileContent = await fs.readFile(filePath, "utf-8");
       const { data, content } = matter(fileContent);
 
@@ -22,6 +23,7 @@ export async function getWorkflows(): Promise<Workflow[]> {
         title: data.title || file.replace(".md", ""),
         description: data.description || "",
         content,
+        lastUpdated: stats.mtime.toISOString(),
       };
     }),
   );

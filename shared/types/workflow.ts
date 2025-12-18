@@ -6,4 +6,5 @@ export interface Workflow {
   title: string;
   description: string;
   content: string;
+  lastUpdated: string;
 }
