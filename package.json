@@ -1,13 +1,17 @@
 {
   "name": "windsurf-workflows-edit",
   "type": "module",
-  "private": true,
+  "private": false,
+  "bin": {
+    "windsurf-workflows": "./dist/cli.js"
+  },
   "scripts": {
     "build": "nuxt build",
+    "build:cli": "tsdown cli.ts --dts",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "bun link && nuxt prepare",
     "lint": "biome lint --write",
     "format": "biome format --write"
   },
@@ -21,6 +25,7 @@
     "@unocss/nuxt": "^66.5.10",
     "@vue/test-utils": "^2.4.6",
     "nuxt-vitest": "^0.11.5",
+    "tsdown": "^0.18.1",
     "vitest": "^4.0.16"
   }
 }
