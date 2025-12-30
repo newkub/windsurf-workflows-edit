@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "turbo watch verify",
-    "postinstall": "taze -r -w -i",
+    "postinstall": "lefthook install",
     "prepare": "lefthook install",
     "dev": "turbo dev --ui=tui",
     "format": "turbo format",
@@ -25,7 +25,6 @@
   "devDependencies": {
     "lefthook": "^2.0.13",
     "taze": "^19.9.2",
-    "turbo": "^2.7.2",
-    "unocss": "^66.5.11"
+    "turbo": "^2.7.2"
   }
 }
