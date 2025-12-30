@@ -5,6 +5,8 @@ export interface Workflow {
   path: string;
   title: string;
   description: string;
+  frontmatter: Record<string, unknown>;
+  raw: string;
   content: string;
   lastUpdated: string;
 }

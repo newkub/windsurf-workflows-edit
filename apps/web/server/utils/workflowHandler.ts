@@ -4,9 +4,17 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { Workflow } from "../../shared/types/workflow";
 
-const workflowsDir =
-  process.env.WINDSURF_WORKFLOWS_DIR ??
-  path.join(os.homedir(), ".codeium", "windsurf", "global_workflows");
+const defaultWorkflowsDir =
+  process.platform === "win32"
+    ? path.join(
+        process.env.USERPROFILE ?? os.homedir(),
+        ".codeium",
+        "windsurf",
+        "global_workflows",
+      )
+    : path.join(os.homedir(), ".codeium", "windsurf", "global_workflows");
+
+const workflowsDir = process.env.WINDSURF_WORKFLOWS_DIR ?? defaultWorkflowsDir;
 
 export async function getWorkflows(): Promise<Workflow[]> {
   const files = await fs.readdir(workflowsDir);
@@ -24,6 +32,8 @@ export async function getWorkflows(): Promise<Workflow[]> {
         path: filePath,
         title: data.title || file.replace(".md", ""),
         description: data.description || "",
+        frontmatter: (data ?? {}) as Record<string, unknown>,
+        raw: fileContent,
         content,
         lastUpdated: stats.mtime.toISOString(),
       };

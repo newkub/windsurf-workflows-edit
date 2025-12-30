@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import type { Ref } from "vue";
-import type { Workflow } from "../../shared/types/workflow";
+import type { Workflow } from "@shared/types/workflow";
 
 export function useWorkflows() {
   const {

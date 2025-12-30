@@ -1,0 +1,1 @@
+<template>\n  <div class= p-6>\n    <h1 class=text-xl font-bold>Unexpected error</h1>\n    <p class=text-sm text-gray-600 mt-2>Please try again.</p>\n  </div>\n</template>\n
