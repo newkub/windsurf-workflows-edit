@@ -1,10 +1,12 @@
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import matter from "gray-matter";
 import type { Workflow } from "../../shared/types/workflow";
 
 const workflowsDir =
-  "C:\\Users\\Veerapong\\.codeium\\windsurf\\global_workflows";
+  process.env.WINDSURF_WORKFLOWS_DIR ??
+  path.join(os.homedir(), ".codeium", "windsurf", "global_workflows");
 
 export async function getWorkflows(): Promise<Workflow[]> {
   const files = await fs.readdir(workflowsDir);

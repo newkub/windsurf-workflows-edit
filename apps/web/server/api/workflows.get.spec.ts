@@ -8,6 +8,7 @@ vi.mock("node:fs/promises", () => ({
   default: {
     readdir: vi.fn(),
     readFile: vi.fn(),
+    stat: vi.fn(),
   },
 }));
 
@@ -27,6 +28,7 @@ describe("GET /api/workflows", () => {
 
     (fs.readdir as vi.Mock).mockResolvedValue(mockFiles);
     (fs.readFile as vi.Mock).mockResolvedValue(mockFileContent);
+    (fs.stat as vi.Mock).mockResolvedValue({ mtime: new Date(0) });
 
     // Act
     const response = await handler({} as H3Event); // We can pass a mock event if needed

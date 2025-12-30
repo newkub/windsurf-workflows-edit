@@ -23,7 +23,7 @@ watch(
   { immediate: true },
 );
 
-async function saveChanges() {
+async function _saveChanges() {
   isSaving.value = true;
   error.value = null;
   try {
@@ -64,7 +64,7 @@ async function saveChanges() {
       <div class="flex justify-end items-center border-t pt-2 mt-4">
         <p v-if="error" class="text-red-500 mr-4">{{ error }}</p>
         <button 
-          @click="saveChanges"
+          @click="_saveChanges"
           :disabled="isSaving"
           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
         >

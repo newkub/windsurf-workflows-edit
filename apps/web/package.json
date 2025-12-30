@@ -1,0 +1,35 @@
+{
+  "name": "web",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "windsurf-workflows": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --open",
+    "generate": "nuxt generate",
+    "prepare": "nuxt prepare",
+    "preview": "nuxt preview",
+    "postinstall": "bun link",
+    "lint": "biome lint --write",
+    "format": "biome format --write",
+    "test": "vitest run",
+    "verify": "bun run test && bun run build"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "h3": "^^1.15.4",
+    "nuxt": "^4.2.2",
+    "vue": "^3.5.26",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.10",
+    "@unocss/nuxt": "^66.5.11",
+    "@vue/test-utils": "^2.4.6",
+    "nuxt-vitest": "^",
+    "tsdown": "^0.18.3",
+    "vitest": "^4.0.16"
+  }
+}
