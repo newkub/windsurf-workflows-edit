@@ -7,7 +7,7 @@
   ],
   "concurrency": "32",
   "tasks": {
-    "start": {
+    "watch": {
       "cache": false,
       "persistent": true
     },
@@ -33,13 +33,6 @@
       "dependsOn": ["^lint"],
       "outputs": [],
       "cache": false
-    },
-    "verify": {
-      "dependsOn": ["^test"],
-      "cache": false
-    },
-    "preview": {
-      "dependsOn": ["^verify"]
     }
   }
 }

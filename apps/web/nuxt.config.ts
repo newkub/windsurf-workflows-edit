@@ -68,5 +68,8 @@ export default defineNuxtConfig({
         vueTsc: true,
       }),
     ],
+    define: {
+      'import.meta.vitest': undefined,
+    },
   },
 } as any);

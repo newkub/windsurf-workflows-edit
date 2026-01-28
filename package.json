@@ -2,29 +2,32 @@
   "name": "windsurf-workflows-edit",
   "private": true,
   "type": "module",
-  "packageManager": "bun@1.3.5",
+  "packageManager": "bun@1.3.7",
   "globalConcurrency": 32,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
-    "start": "turbo watch verify",
-    "postinstall": "lefthook install",
-    "prepare": "lefthook install",
+    "watch": "turbo watch verify",
+    "prepare": "bunx lefthook install && bunx taze -r -w -i",
     "dev": "turbo dev --ui=tui",
     "format": "turbo format",
-    "scan": "sg scan -r",
+    "scan": "bunx sg scan -r",
     "check:modules": "bunx node-modules-inspector",
-    "deps:update": "taze -r -w",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build",
-    "verify": "turbo verify",
-    "clean": "bunx rimraf */bun.lockb */node_modules"
+    "verify": "turbo lint && turbo test && turbo build",
+    "devtools": "turbo devtools"
   },
   "devDependencies": {
-    "lefthook": "^2.0.13",
+    "@ast-grep/cli": "^0.40.5",
+    "lefthook": "^2.0.16",
+    "node-modules-inspector": "^1.2.0",
     "taze": "^19.9.2",
-    "turbo": "^2.7.2"
+    "turbo": "^2.7.6",
+    "unocss": "^66.6.0",
+    "vitest": "^4.0.18"
   }
 }

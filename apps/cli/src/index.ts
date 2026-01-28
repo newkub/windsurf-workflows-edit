@@ -1,30 +1,52 @@
-import { renderHelp } from "./components/help";
-import { parseArgv } from "./utils/argv";
-import { runMakeCompletelyInteractive, runMakeCompletelyNonInteractive } from "./app";
+#!/usr/bin/env node
 
-const { command, flags } = parseArgv(process.argv);
+import { WorkflowPrompts } from './prompts/workflow-prompts.js';
 
-if (!command || command === "help" || command === "--help" || command === "-h") {
-  process.stdout.write(`${renderHelp()}\n`);
-} else if (command === "make-completely") {
-  const isNonInteractive =
-    typeof flags.id === "string" ||
-    typeof flags.title === "string" ||
-    typeof flags.description === "string" ||
-    flags.overwrite === true;
+async function main() {
+  try {
+    while (true) {
+      const action = await WorkflowPrompts.showMainMenu();
+      
+      switch (action) {
+        case 'add':
+          await WorkflowPrompts.addWorkflow();
+          break;
+        case 'edit':
+          await WorkflowPrompts.editWorkflow();
+          break;
+        case 'delete':
+          await WorkflowPrompts.deleteWorkflow();
+          break;
+        case 'open':
+          await WorkflowPrompts.openWorkflow();
+          break;
+        case 'list':
+          await WorkflowPrompts.listWorkflows();
+          break;
+        case 'exit':
+          console.log('👋 Goodbye!');
+          process.exit(0);
+          break;
+        default:
+          console.log('❌ Invalid option');
+          break;
+      }
 
-  const res = isNonInteractive
-    ? await runMakeCompletelyNonInteractive(flags)
-    : await runMakeCompletelyInteractive();
+      // Ask if user wants to continue
+      const { confirm } = await import('@clack/prompts');
+      const shouldContinue = await confirm({
+        message: 'Would you like to perform another action?'
+      });
 
-  if (!res.ok) {
-    process.stderr.write(`${res.error.message}\n`);
-    process.exitCode = 1;
-  } else {
-    process.stdout.write(`Created: ${res.value.filePath}\n`);
+      if (!shouldContinue) {
+        console.log('👋 Goodbye!');
+        process.exit(0);
+      }
+    }
+  } catch (error) {
+    console.error('❌ An error occurred:', error);
+    process.exit(1);
   }
-} else {
-  process.stderr.write(`Unknown command: ${command}\n`);
-  process.stdout.write(`${renderHelp()}\n`);
-  process.exitCode = 1;
 }
+
+main();
